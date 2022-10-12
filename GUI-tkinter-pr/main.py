@@ -41,7 +41,7 @@ Button(frame, text='커스텀 알람', width=btn_width,
        height=btn_height, overrelief=SUNKEN).grid(row=0, column=1)
 
 # pack과 grid 메소드는 함께 사용할 수 없다. <에러 발생> 그래서 frame을 대체제로 사용
-# frame은 div와 비슷, 요스를 묶어줌
+# frame은 div와 비슷, 요소를 묶어줌
 
 frame.pack()
 
