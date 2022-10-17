@@ -22,3 +22,43 @@
 #  알람 설정한 것이 이게 맞는지 확인하는 창 띄우기
 #  확인 / 다시하기 선택하기
 #  마지막으로 알람 듣고 일어나면 됨!
+
+
+from tkinter import *
+from tkinter import filedialog
+import tkinter.font
+from tokenize import group
+from turtle import bgcolor
+
+
+root = tkinter.Tk()
+root.geometry("800x600")
+
+root.title("peo-ddeug")  # 창 제목
+
+
+title_font = tkinter.font.Font(family="메이플스토리", size=30)
+btn_font = tkinter.font.Font(family="메이플스토리", size=10)
+
+# 텍스트 / Label(위치, text ="텍스트").pack() -> 첫번째 인자값(위치)에 보여줘라
+title = tkinter.Label(root, text='퍼뜩퍼뜩', font=title_font)
+title.place(x=200, y=300)
+
+# 버튼 / grid, frame
+btn_width, btn_height = 10, 3
+
+frame = tkinter.Frame(root, bg='#80c1ff', bd=5)
+# frame.place(x=200, y=300)
+
+# # 버튼 컴포넌트 생성
+# Button(위치, text='텍스트', width=너비, height=높이).pack()
+btn_normal = tkinter.Button(root, text='기본 알람', font=btn_font, width=btn_width,
+                            height=btn_height).grid(row=0, column=0)
+btn_custom = tkinter.Button(root, text='커스텀 알람', font=btn_font, width=btn_width,
+                            height=btn_height).grid(row=0, column=1)
+
+btn_normal.place(x=200, y=200)
+
+frame.pack()
+
+root.mainloop()
