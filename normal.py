@@ -46,7 +46,7 @@ title_font = tkinter.font.Font(family="함초롬바탕", size=30)
 btn_font = tkinter.font.Font(family="함초롬바탕", size=10)
 
 # 텍스트 / Label(위치, text ="텍스트").pack() -> 첫번째 인자값(위치)에 보여줘라
-title = tkinter.Label(root, text='퍼뜩퍼뜩', font=title_font, width=10)
+title = tkinter.Label(root, text='기본 알람', font=title_font, width=10)
 
 title.place(x=280, y=0)
 
