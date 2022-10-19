@@ -65,6 +65,12 @@ btn_custom = tkinter.Button(frame, text='커스텀 알람', font=btn_font, width
 # pack과 grid 메소드는 함께 사용할 수 없다. <에러 발생> 그래서 frame을 대체제로 사용
 # frame은 div와 비슷, 요소를 묶어줌
 
+# 코드에서 작성하신 것처럼 grid 와 pack 을 혼용하여서 쓰시면 안됩니다.
+# 마치 군대에서 이등병에게 소대장이 "야, 여기 청소해" 를 함과 동시에
+# 분대장인 병장이 "야, 청소 하지마" 를 얘기하는 것과 같습니다.
+# 이등병은 어떻게 해야 할지 혼란스러워지겠죠..
+# 인프런 나도코딩 댓글 출처
+
 frame.pack()
 
 root.mainloop()
