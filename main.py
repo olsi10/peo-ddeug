@@ -28,7 +28,7 @@ from tkinter import *
 from tkinter import filedialog
 import tkinter.font
 from tokenize import group
-from turtle import bgcolor
+from turtle import bgcolor, width
 
 
 root = Tk()
@@ -42,11 +42,14 @@ def click():
     import normal
 
 
-title_font = tkinter.font.Font(family="메이플스토리", size=30)
-btn_font = tkinter.font.Font(family="메이플스토리", size=10)
+title_font = tkinter.font.Font(family="함초롬바탕", size=30)
+btn_font = tkinter.font.Font(family="함초롬바탕", size=10)
 
 # 텍스트 / Label(위치, text ="텍스트").pack() -> 첫번째 인자값(위치)에 보여줘라
-title = tkinter.Label(root, text='퍼뜩퍼뜩', font=title_font)
+title = tkinter.Label(root, text='퍼뜩퍼뜩', font=title_font, width=10)
+
+title.place(x=280, y=0)
+
 # 버튼 / grid, frame
 btn_width, btn_height = 10, 3
 
@@ -62,6 +65,9 @@ btnN.grid(row=0, column=0)
 btnC = tkinter.Button(root, text='커스텀 알람', font=btn_font,
                       width=btn_width, height=btn_height)
 btnC.grid(row=0, column=1)
+
+btnN.place(x=300, y=100)
+btnC.place(x=400, y=100)
 
 # type 의 객체를 생성하고 Button있지만 즉시 grid메서드를 호출하여 를 반환합니다
 # None. 따라서 pButton가 할당 None되고 이것이 다음 행이 실패하는 이유입니다.
