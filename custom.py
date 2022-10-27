@@ -25,10 +25,12 @@
 
 
 from tkinter import *
-from tkinter import filedialog
-import tkinter.font
 from tokenize import group
 from turtle import bgcolor, width
+from tkinter import filedialog
+import tkinter.font
+import webbrowser
+import time
 
 
 root = Tk()
@@ -43,11 +45,17 @@ mainLabel.pack()
 
 root.title("peo-ddeug")  # 창 제목
 
-entURL = tkinter.Entry(root)                 # root라는 창에 입력창 생성
-# entURL.config(width=30)              # 입력창 크기 설정
-# entURL.config(fg="red", bg="yellow")  # 입력창 배경, 글자색 설정
-# entURL.insert(0, "글자 입력가능")    # 처음 입력창에 첫번째 자리(0)에 텍스트를 입력
-entURL.place(x=100, y=100)
-entURL.pack()                        # 입력창 배치
+
+# 입력된 결과를 실행하는 함수
+def resultURL(n):
+    getentURL = str(entURL.get())
+    webbrowser.open(getentURL)
+
+
+entURL = tkinter.Entry(root, width=30)                 # root라는 창에 입력창 생성
+entURL.config(fg="black")  # 입력창 배경, 글자색 설정
+entURL.place(x=260, y=200)
+entURL.bind("<Return>", resultURL)  # 엔터를 치면 결과라는 함수를 실행하라.
+
 
 root.mainloop()
