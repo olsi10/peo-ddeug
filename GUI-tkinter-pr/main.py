@@ -8,6 +8,10 @@ from turtle import bgcolor
 root = tkinter.Tk()
 root.geometry("800x600")
 
+# 각 모니터의 가로축, 세로축 픽셀값 반환
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+
 # width, height = 800, 460  # 창 크기 설정
 # root.geometry('{0}x{1}'.format(width, height))  # 창크기 설정
 # root.resizable(True, False)  # 크기 조정 가능 여부

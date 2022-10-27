@@ -32,7 +32,14 @@ from turtle import bgcolor, width
 
 
 root = Tk()
-root.geometry("800x600")
+root.geometry("750x400-40+50")
+root.title("peo-ddeug")  # 창 제목
+root.configure(background='white')
+
+backImg = tkinter.PhotoImage(file="img/mainImg.png")
+
+label = tkinter.Label(root, image=backImg)
+label.pack()
 
 root.title("peo-ddeug")  # 창 제목
 
@@ -42,39 +49,25 @@ def click():
     import main
 
 
-title_font = tkinter.font.Font(family="함초롬바탕", size=30)
-btn_font = tkinter.font.Font(family="함초롬바탕", size=10)
+def click1():
+    root.destroy()
+    import custom
 
-# 텍스트 / Label(위치, text ="텍스트").pack() -> 첫번째 인자값(위치)에 보여줘라
-title = tkinter.Label(root, text='기본 알람', font=title_font, width=10)
 
-title.place(x=280, y=0)
+btn_font = tkinter.font.Font(family="메이플스토리", size=13)
 
-# 버튼 / grid, frame
-btn_width, btn_height = 10, 3
+btn_width, btn_height = 15, 3
 
-frame = tkinter.Frame(root, bg='#80c1ff', bd=5)
-# frame.place(x=200, y=300)
-
-# # 버튼 컴포넌트 생성
-# Button(위치, text='텍스트', width=너비, height=높이).pack()
-btnN = tkinter.Button(root, text='다시 메인으로', font=btn_font,
+btnN = tkinter.Button(root, text='기본 알람', font=btn_font,
                       width=btn_width, height=btn_height)
-btnN.grid(row=0, column=0)
-
 btnC = tkinter.Button(root, text='커스텀 알람', font=btn_font,
                       width=btn_width, height=btn_height)
-btnC.grid(row=0, column=1)
 
-btnN.place(x=300, y=100)
-btnC.place(x=400, y=100)
-
-# type 의 객체를 생성하고 Button있지만 즉시 grid메서드를 호출하여 를 반환합니다
-# None. 따라서 pButton가 할당 None되고 이것이 다음 행이 실패하는 이유입니다.
-# 즉, 먼저 버튼을 생성하고 에 할당 pButton한 다음 그 위에 작업을 수행합니다.
-#### Nonetype 에러나는 이유 : 스택오버플로우 출처
+btnN.place(x=200, y=180)
+btnC.place(x=380, y=180)
 
 btnN.config(command=click)
+btnC.config(command=click1)
 
 # frame.pack()
 
