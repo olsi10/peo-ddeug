@@ -41,15 +41,17 @@ def click():
     root.destroy()
     import normal
 
+
 def click1():
     root.destroy()
     import custom
 
-title_font = tkinter.font.Font(family="함초롬바탕")
+
+title_font = tkinter.font.Font(family="함초롬바탕", weight='bold', size=30)
 btn_font = tkinter.font.Font(family="함초롬바탕", size=10)
 
 title = tkinter.Label(root, text='퍼뜩퍼뜩', font=title_font)
-title.place(x=100, y=0)
+title.place(x=320, y=100)
 
 btn_width, btn_height = 10, 3
 
@@ -57,14 +59,14 @@ frame = tkinter.Frame(root, bg='#80c1ff', bd=5)
 
 btnN = tkinter.Button(root, text='기본 알람', font=btn_font,
                       width=btn_width, height=btn_height)
-btnN.grid(row=0, column=0)
-
 btnC = tkinter.Button(root, text='커스텀 알람', font=btn_font,
                       width=btn_width, height=btn_height)
+
+btnN.grid(row=0, column=0)
 btnC.grid(row=0, column=1)
 
-btnN.place(x=300, y=200)
-btnC.place(x=400, y=200)
+btnN.place(x=300, y=170)
+btnC.place(x=400, y=170)
 
 btnN.config(command=click)
 btnC.config(command=click1)
