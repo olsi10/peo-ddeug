@@ -56,9 +56,9 @@ btn_font = tkinter.font.Font(family="메이플스토리", size=13)
 btn_width, btn_height = 15, 3
 
 btnN = tkinter.Button(root, text='기본 알람', font=btn_font,
-                      width=btn_width, height=btn_height)
+                      width=btn_width, height=btn_height, bg='white')
 btnC = tkinter.Button(root, text='커스텀 알람', font=btn_font,
-                      width=btn_width, height=btn_height)
+                      width=btn_width, height=btn_height, bg='white')
 
 btnN.place(x=200, y=180)
 btnC.place(x=380, y=180)
