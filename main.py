@@ -40,15 +40,17 @@ mainLabel.pack()
 
 root.title("peo-ddeug")  # 창 제목
 
+file1 = "Normal/normal.py"
+
 
 def click():
     root.destroy()
-    import normal
+    import Normal.normal as normal
 
 
 def click1():
     root.destroy()
-    import custom
+    import Cunstom.custom as custom
 
 
 btn_font = tkinter.font.Font(family="메이플스토리", size=13)
