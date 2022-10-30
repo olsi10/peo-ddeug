@@ -25,10 +25,12 @@
 
 
 from tkinter import *
-from tkinter import filedialog
-import tkinter.font
 from tokenize import group
 from turtle import bgcolor, width
+from tkinter import filedialog
+import tkinter.font
+import webbrowser
+import time
 
 
 root = Tk()
@@ -36,39 +38,25 @@ root.geometry("750x400-40+50")
 root.title("peo-ddeug")  # 창 제목
 root.configure(background='white')
 
-backImg = tkinter.PhotoImage(file="img/mainImg.png")
+backImg = tkinter.PhotoImage(file="img\mainImg.png")
 
-label = tkinter.Label(root, image=backImg)
-label.pack()
+mainLabel = tkinter.Label(root, image=backImg)
+mainLabel.pack()
 
 root.title("peo-ddeug")  # 창 제목
 
 
-def click():
-    root.destroy()
-    import main
+# 입력된 결과를 실행하는 함수
+def resultURL(n):
+    getentURL = str(entURL.get())
+    webbrowser.open(getentURL)
 
 
-def click1():
-    root.destroy()
-    import custom
+# root라는 창에 입력창 생성
+entURL = tkinter.Entry(root, width=30)
+entURL.config(fg="black")  # 입력창 배경, 글자색 설정
+entURL.place(x=260, y=200)
+entURL.bind("<Return>", resultURL)  # 엔터를 치면 결과라는 함수를 실행하라.
 
-
-btn_font = tkinter.font.Font(family="메이플스토리", size=13)
-
-btn_width, btn_height = 15, 3
-
-btnN = tkinter.Button(root, text='기본 알람', font=btn_font,
-                      width=btn_width, height=btn_height)
-btnC = tkinter.Button(root, text='커스텀 알람', font=btn_font,
-                      width=btn_width, height=btn_height)
-
-btnN.place(x=200, y=180)
-btnC.place(x=380, y=180)
-
-btnN.config(command=click)
-btnC.config(command=click1)
-
-# frame.pack()
 
 root.mainloop()
