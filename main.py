@@ -34,13 +34,12 @@ root.geometry("750x400-40+50")
 root.resizable(False, False)
 root.configure(background='white')
 
+
 backImg = tkinter.PhotoImage(file="img/mainImg.png")
 mainLabel = tkinter.Label(root, image=backImg)
 mainLabel.pack()
 
 root.title("peo-ddeug")  # 창 제목
-
-file1 = "Normal/normal.py"
 
 
 def click():
