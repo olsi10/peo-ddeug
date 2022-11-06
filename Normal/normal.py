@@ -37,12 +37,12 @@ import playsound
 import pygame
 
 root = Tk()
+root.resizable(False, False)
 root.geometry("750x400-40+50")
 root.title("peo-ddeug")  # 창 제목
 root.configure(background='white')
 
-backImg = tkinter.PhotoImage(file="img/mainImg.png")
-
+backImg = tkinter.PhotoImage(file="img/original.png")
 label = tkinter.Label(root, image=backImg)
 label.pack()
 
@@ -68,7 +68,7 @@ root.title("peo-ddeug")  # 창 제목
 # checkbutton1.place(x=260, y=200)
 
 def timer(n):
-    cntSec = int(sec.get())
+    cntSec = int(sec.get()) * 60
     while (cntSec != 0):
         cntSec = cntSec-1
         time.sleep(1)
@@ -85,9 +85,9 @@ def timer(n):
 inputTime = tkinter.Label(root, text="타이머 시간 입력 (초)", font="메이플스토리")
 
 # root라는 창에 입력창 생성
-sec = tkinter.Entry(root, width=30)
+sec = tkinter.Entry(root, width=20)
 sec.config(fg="black")  # 입력창 배경, 글자색 설정
-sec.place(x=260, y=200)
+sec.place(x=560, y=140)
 sec.bind("<Return>", timer)  # 엔터를 치면 결과라는 함수를 실행하라
 
 root.mainloop()
