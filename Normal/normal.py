@@ -27,6 +27,7 @@
 import imp
 from tabnanny import check
 from tkinter import *
+import tkinter.ttk
 from tokenize import group
 from turtle import bgcolor, width
 from tkinter import filedialog
@@ -67,6 +68,10 @@ root.title("peo-ddeug")  # 창 제목
 
 # checkbutton1.place(x=260, y=200)
 
+# 버튼 누르면 알람 설정에 따라
+def btnpress():                   # 함수 btnpress() 정의
+
+
 def timer(n):
     cntSec = int(sec.get()) * 60
     while (cntSec != 0):
@@ -84,10 +89,33 @@ def timer(n):
 
 inputTime = tkinter.Label(root, text="타이머 시간 입력 (초)", font="메이플스토리")
 
+# 콤보 박스
+type = ["개발자 PICK", "NOISE", "QUITE"]
+alarmType = tkinter.ttk.Combobox(root, width=10, height=10, value=type)
+alarmType.set("선택")
+alarmType.place(x=230, y=230)
+
+# DB 콤보 박스
+type = ["NOISE, 30분", "QUITE 10분", "개발자 PICK 2분"]
+alarmType = tkinter.ttk.Combobox(root, width=10, height=10, value=type)
+alarmType.set("선택")
+alarmType.place(x=570, y=230)
+
 # root라는 창에 입력창 생성
 sec = tkinter.Entry(root, width=20)
 sec.config(fg="black")  # 입력창 배경, 글자색 설정
-sec.place(x=560, y=140)
+sec.place(x=200, y=140)
 sec.bind("<Return>", timer)  # 엔터를 치면 결과라는 함수를 실행하라
+
+# 게임 여부 체크버튼
+gameChk = tkinter.Checkbutton(root, text="기상 게임")
+gameChk.place(x=230, y=310)
+
+# 확인 버튼
+btnImg = PhotoImage(file='img/button.png')
+btnOk = tkinter.Button(root, image=btnImg)
+btnOk.place(x=490, y=320)
+
+btnOk.config(command=btnpress)
 
 root.mainloop()

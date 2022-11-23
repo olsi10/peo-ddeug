@@ -34,14 +34,14 @@ import time
 
 
 root = Tk()
+root.resizable(False, False)
 root.geometry("750x400-40+50")
 root.title("peo-ddeug")  # 창 제목
 root.configure(background='white')
 
-backImg = tkinter.PhotoImage(file="img\mainImg.png")
-
-mainLabel = tkinter.Label(root, image=backImg)
-mainLabel.pack()
+backImg = tkinter.PhotoImage(file="img/custom.png")
+label = tkinter.Label(root, image=backImg)
+label.pack()
 
 root.title("peo-ddeug")  # 창 제목
 
