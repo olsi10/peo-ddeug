@@ -42,13 +42,13 @@ import os
 from multiprocessing import Process
 import sys
 
-import sqlite3  # pip install pysqlite3
+# import sqlite3  # pip install pysqlite3
 
-conn = sqlite3.connect('data.sqlite', isolation_level=None)
-c = conn.cursor()
+# conn = sqlite3.connect('data.sqlite', isolation_level=None)
+# c = conn.cursor()
 
-c.execute("CREATE TABLE IF NOT EXISTS users\
-(id INTEGER PRIMARY KEY, username TEXT, email TEXT, phone TEXT, regist_date TEXT)")
+# c.execute("CREATE TABLE IF NOT EXISTS users\
+# (id INTEGER PRIMARY KEY, username TEXT, email TEXT, phone TEXT, regist_date TEXT)")
 
 root = Tk()
 root.resizable(False, False)
