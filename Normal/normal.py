@@ -39,6 +39,16 @@ import playsound
 import pygame
 import random
 import os
+from multiprocessing import Process
+import sys
+
+import sqlite3  # pip install pysqlite3
+
+conn = sqlite3.connect('data.sqlite', isolation_level=None)
+c = conn.cursor()
+
+c.execute("CREATE TABLE IF NOT EXISTS users\
+(id INTEGER PRIMARY KEY, username TEXT, email TEXT, phone TEXT, regist_date TEXT)")
 
 root = Tk()
 root.resizable(False, False)
@@ -71,7 +81,14 @@ root.title("peo-ddeug")  # 창 제목
 
 # checkbutton1.place(x=260, y=200)
 
+# 메세지 요청 박스  만약 게임 플레이 여부가 false 라면 음악을 멈추겠냐는 확인 박스를 띄운다
+def okcancel():
+    msgbox.askquestion(title="예 / 아니요",
+                       message="어서 잠에서 깨세요!! (확인을 누르면 기상 게임 화면으로 넘어갑니다.")
+
 # 버튼 누르면 알람 설정에 따라
+
+
 def btnpress():
     timer()
 
@@ -110,9 +127,9 @@ def alarm():
         print('개발자 PICK 곡 재생 ~ ♬ ' + os.path.basename(randomMP3))
         playsound.playsound(randomMP3)
 
-        # print(sec.get())  # 알람 몇 분인지 값 가져오기
+    # print(sec.get())  # 알람 몇 분인지 값 가져오기
 
-        # 게임 플레이 여부
+    # 게임 플레이 여부
 
 
 def chkOK():
@@ -120,11 +137,6 @@ def chkOK():
         print("게임 플레이 여부 -> 참")
     else:
         print("게임 플레이 여부 -> 거짓")
-
-
-# 메세지 요청 박스  만약 게임 플레이 여부가 false 라면 음악을 멈추겠냐는 확인 박스를 띄운다
-# def okcancel():
-
 
 # https://blog.naver.com/PostView.nhn?isHttpsRedirect=true&blogId=amethyst_lee&logNo=222021293449&parentCategoryNo=&categoryNo=&viewDate=&isShowPopularPosts=false&from=postView
 # https: // opentutorials.org/module/3181/18809
@@ -141,12 +153,8 @@ def timer():
 
     # 음악을 튼다.
     if cntSec == 0:
+        # 선택한 옵션들에 맞는 음악을 재생
         alarm()
-        # playsound.playsound('soundfile/quite/JingleBells.mp3')
-        # 음악을 멈추고 기상 게임을 할지 물어본다. 만약 게임 플레이 여부가 false 라면 음악을 멈추겠냐는 확인 박스를 띄운다
-        msgbox.askquestion(title="예 / 아니요",
-                           message="어서 잠에서 깨세요!! (확인을 누르면 기상 게임 화면으로 넘어갑니다.")
-
 
 # 최근에 이 라이브러리(버전 1.3.0)를 설치해서 테스트해봤는데 오디오 파일 재생이 안 되면서 다음과 같은 에러가 발생했습니다.
 # 그래서 playsound 버전을 1.2.2 로 낮췄더니 굿굿

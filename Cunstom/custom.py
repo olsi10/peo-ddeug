@@ -25,6 +25,7 @@
 
 
 from tkinter import *
+import tkinter.ttk
 from tokenize import group
 from turtle import bgcolor, width
 from tkinter import filedialog
@@ -46,17 +47,62 @@ label.pack()
 root.title("peo-ddeug")  # 창 제목
 
 
+def btnpress():
+    timer()
+
 # 입력된 결과를 실행하는 함수
-def resultURL(n):
+
+
+def resultURL():
     getentURL = str(entURL.get())
     webbrowser.open(getentURL)
 
 
-# root라는 창에 입력창 생성
-entURL = tkinter.Entry(root, width=30)
-entURL.config(fg="black")  # 입력창 배경, 글자색 설정
-entURL.place(x=260, y=200)
-entURL.bind("<Return>", resultURL)  # 엔터를 치면 결과라는 함수를 실행하라.
+def timer():
+    cntSec = int(sec.get()) * 60
+    while (cntSec != 0):
+        cntSec = cntSec-1
+        time.sleep(1)
+        print(cntSec)
 
+    # 음악을 튼다.
+    if cntSec == 0:
+        # 선택한 옵션들에 맞는 음악을 재생
+        resultURL()
+
+
+# url을 입력할 입력창 생성
+entURL = tkinter.Entry(root, width=20)
+entURL.config(fg="black")  # 입력창 배경, 글자색 설정
+entURL.place(x=200, y=220)
+entURL.bind(resultURL)  # 엔터를 치면 결과라는 함수를 실행하라.
+
+# 타이머를 입력할 입력창 생성
+sec = tkinter.Entry(root, width=15)
+sec.config(fg="black")  # 입력창 배경, 글자색 설정
+sec.place(x=200, y=140)
+# sec.bind("<Return>", timer)  # 엔터를 치면 결과라는 함수를 실행하라
+sec.bind(timer)  # 엔터를 치면 결과라는 함수를 실행하라
+
+inputTime = tkinter.Label(root, text="타이머 시간 입력 (초)", font="메이플스토리")
+
+# DB 콤보 박스
+typeDB = ["NOISE, 30분", "QUITE 10분", "개발자 PICK 2분"]
+alarmTypeDB = tkinter.ttk.Combobox(root, width=10, height=10, value=type)
+alarmTypeDB.set("선택")
+alarmTypeDB.place(x=570, y=230)
+alarmTypeDB.config(state="readonly")  # 사용자의 입력 제한
+
+
+# 게임 여부 체크버튼
+value = IntVar()
+gameChk = tkinter.Checkbutton(root, text="기상 게임", variable=value)
+gameChk.place(x=230, y=310)
+
+# 확인 버튼
+btnImg = PhotoImage(file='img/button.png')
+btnOk = tkinter.Button(root, image=btnImg)
+btnOk.place(x=490, y=320)
+btnOk.config(command=btnpress)
 
 root.mainloop()
