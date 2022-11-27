@@ -101,9 +101,9 @@ def btnpress():
 def alarm():
 
     # https://stackoverflow.com/questions/60250171/how-to-play-random-mp3-files-in-pygame
-    pathN = "E:/peo-ddeug/soundfile/NOISE"
-    pathQ = "E:/peo-ddeug/soundfile/QUITE"
-    pathD = "E:/peo-ddeug/soundfile/developerPICK"
+    pathN = "/peo-ddeug/soundfile/NOISE"
+    pathQ = "/peo-ddeug/soundfile/QUITE"
+    pathD = "/peo-ddeug/soundfile/developerPICK"
 
     # 폴더의 모든 파일 목록을 가져오는 데 사용 / endswtich 문자열이 mp3로 끝나는지
     N_mp3 = [os.path.join(pathN, f)
