@@ -62,32 +62,35 @@ label.pack()
 
 root.title("peo-ddeug")  # 창 제목
 
-
-# def flash():
-#     checkbutton1.flash()
-
-
-# alarmTypeCheck1 = tkinter.IntVar()
-# loopCount = tkinter.IntVar()
-# askPlayGame = tkinter.IntVar()
-
-
-# checkbutton1 = tkinter.Checkbutton(
-#     root, text="", variable=CheckVariety_1, activebackground="blue")
-# checkbutton2 = tkinter.Checkbutton(
-#     root, text="△", variable=CheckVariety_2)
-# checkbutton3 = tkinter.Checkbutton(
-#     root, text="X", variable=CheckVariety_2, command=flash)
-
-# checkbutton1.place(x=260, y=200)
-
 # 메세지 요청 박스  만약 게임 플레이 여부가 false 라면 음악을 멈추겠냐는 확인 박스를 띄운다
-def okcancel():
-    msgbox.askquestion(title="예 / 아니요",
-                       message="어서 잠에서 깨세요!! (확인을 누르면 기상 게임 화면으로 넘어갑니다.")
 
-# 버튼 누르면 알람 설정에 따라
 
+# def okcancel():
+#     msgbox.askquestion(title="예 / 아니요",
+#                        message="어서 잠에서 깨세요!! (확인을 누르면 기상 게임 화면으로 넘어갑니다.")
+#     alarm()
+
+# 버튼 누르면 알람 옵션에 따른 알람 실행
+
+
+# https://scribblinganything.tistory.com/278
+# def msgAndGame():
+#     new.configure()
+
+
+# def new_window():
+#     global new
+#     new = Toplevel()
+#     new.bind(msgAndGame)
+
+
+# def btnpress():
+#     p1 = Process(target=new_window)
+#     p2 = Process(target=timer)
+#     p1.start()
+#     p2.start()
+#     p1.join()
+#     p2.join()
 
 def btnpress():
     timer()
@@ -154,6 +157,7 @@ def timer():
     # 음악을 튼다.
     if cntSec == 0:
         # 선택한 옵션들에 맞는 음악을 재생
+        # alarm()
         alarm()
 
 # 최근에 이 라이브러리(버전 1.3.0)를 설치해서 테스트해봤는데 오디오 파일 재생이 안 되면서 다음과 같은 에러가 발생했습니다.
