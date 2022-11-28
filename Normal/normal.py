@@ -77,8 +77,18 @@ def game():
 # 게임 파일을 랜덤으로 골라서 랜덤 게임을 화면에 띄운다
 
 
+def bugGame():
+    root.destroy()
+    import catchBug
+
+
+def poopGame():
+    root.destroy()
+    import frompoop
+
+
 def openGame():
-    pathG = "/peo-ddeug/WakeUpGame/game"
+    pathG = "/peo-ddeug/WakeUpGame"
     gamefile = [os.path.join(pathG, f)
                 for f in os.listdir(pathG) if f.endswith('.py')]
     randomgame = random.choice(gamefile)
@@ -86,16 +96,11 @@ def openGame():
     print("완전 재밌는 게임 ♨ " + os.path.basename(randomgame))
 
     if randomgame == "catchBug.py":
-        from WakeUpGame.game import catchBug
-        # catchBug = Toplevel(root)
-        # catchBug = Tk()
-        # catchBug.title("New page")
-        # catchBug.geometry("700x400")
+        bugGame()
     else:
-        from WakeUpGame.game import frompoop
+        poopGame()
 
-
-# 알람 파일을 배열에 담아 랜덤으로 꺼내 재생 / 알람 타입 확인 후 알맞는 알람 재생
+    # 알람 파일을 배열에 담아 랜덤으로 꺼내 재생 / 알람 타입 확인 후 알맞는 알람 재생
 
 
 def alarm():
@@ -127,6 +132,7 @@ def alarm():
         time.sleep(stopSec)  # delay
         mixer.music.stop()  # stop music
 
+        # game function call
         if stopSec == 0:
             game()
 
@@ -139,6 +145,7 @@ def alarm():
 
     elif type == "QUITE":
         randomMP3 = random.choice(Q_mp3)
+        print(f'{stopSec} 초 동안')
         print('QUITE라고 조용할까? 일어나야지!!! 곡 재생 ~ ♬ ' + os.path.basename(randomMP3))
 
         mixer.music.load(randomMP3)  # loading music
@@ -147,10 +154,12 @@ def alarm():
         mixer.music.stop()  # stop music
 
         # game function call
-        # gameChk()
+        if stopSec == 0:
+            game()
 
     elif type == "개발자 PICK":
         randomMP3 = random.choice(D_mp3)
+        print(f'{stopSec} 초 동안')
         print('개발자 PICK 곡 재생 ~ ♬ ' + os.path.basename(randomMP3))
 
         mixer.music.load(randomMP3)  # loading music
@@ -159,13 +168,16 @@ def alarm():
         mixer.music.stop()  # stop music
 
         # game function call
-        # gameChk()
+        if stopSec == 0:
+            game()
 
 # https://blog.naver.com/PostView.nhn?isHttpsRedirect=true&blogId=amethyst_lee&logNo=222021293449&parentCategoryNo=&categoryNo=&viewDate=&isShowPopularPosts=false&from=postView
 # https: // opentutorials.org/module/3181/18809
 
 
 def timer():
+    btnCb['state'] = tkinter.NORMAL
+    btnCb1['state'] = tkinter.NORMAL
     cntSec = int(sec.get()) * 60
     while (cntSec != 0):
         cntSec = cntSec-1
@@ -230,5 +242,13 @@ btnImg = PhotoImage(file='img/button.png')
 btnOk = tkinter.Button(root, image=btnImg)
 btnOk.place(x=530, y=320)
 btnOk.config(command=btnpress)
+
+btnCb = tkinter.Button(root, text="벌레 게임", state=tkinter.DISABLED)
+btnCb.place(x=455, y=355)
+btnCb.config(command=bugGame)
+
+btnCb1 = tkinter.Button(root, text="똥 게임", state=tkinter.DISABLED)
+btnCb1.place(x=460, y=325)
+btnCb1.config(command=poopGame)
 
 root.mainloop()
