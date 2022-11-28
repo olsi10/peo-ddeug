@@ -1,3 +1,4 @@
+import main
 import pygame
 import random
 import imp
@@ -46,20 +47,25 @@ ddong_width = ddong_size[0]
 ddong_height = ddong_size[1]
 ddong_x_pos = random.randint(0, screen_width - ddong_width)
 ddong_y_pos = 0
-ddong_speed = 25
+ddong_speed = 23
 
 # 폰트 정의
 game_font = pygame.font.Font(None, 40)
 
 # 총 시간
-total_time = 10
+total_time = 15
 
 # 시작 시간 정보
 start_ticks = pygame.time.get_ticks()  # 시작 tick 을 받아옴
 
+# 음악
+sound = pygame.mixer.Sound("/peo-ddeug/WakeUpGame/BGM.mp3")
+
+
 # 이벤트 루프
 running = True
 while running:
+    sound.play()  # 음악 재생
     dt = clock.tick(30)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
