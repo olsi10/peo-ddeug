@@ -24,7 +24,6 @@
 #  마지막으로 알람 듣고 일어나면 됨!
 
 from tkinter import *
-from tkinter import filedialog
 import tkinter.font
 from tokenize import group
 from turtle import bgcolor, width
@@ -52,6 +51,11 @@ def click1():
     import Cunstom.custom as custom
 
 
+def testGame():
+    root.destroy()
+    import game_main as game_main
+
+
 btn_font = tkinter.font.Font(family="메이플스토리", size=13)
 
 btn_width, btn_height = 15, 3
@@ -60,6 +64,10 @@ btnN = tkinter.Button(root, text='기본 알람', font=btn_font,
                       width=btn_width, height=btn_height, bg='white')
 btnC = tkinter.Button(root, text='커스텀 알람', font=btn_font,
                       width=btn_width, height=btn_height, bg='white')
+
+btnGame = tkinter.Button(root, text="게임 맛보기", font=btn_font)
+btnGame.place(x=330, y=350)
+btnGame.config(command=testGame)
 
 btnN.place(x=200, y=180)
 btnC.place(x=380, y=180)
