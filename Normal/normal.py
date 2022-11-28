@@ -2,28 +2,28 @@
 
 # <기본 설정>
 # 일어나는 시간, 타이머 설정
-#  원하는 알람 타입 선택 (귀가 밝아요. / 귀가 어두워요)
-#  알람 볼륨 설정 (5 단위 / 0 ~ 100%)
-#  반복 횟수 설정 (최대 10번)
+# 원하는 알람 타입 선택 (NOISE / QUITE)
+# 몇 분간 알람을 재생하는가
 
 # <커스텀 설정>
-#   일어나는 시간, 타이머 설정
+#  일어나는 시간, 타이머 설정
 #  원하는 알람 음악 설정 (url 달기)
-#  알람 볼륨 설정 (5단위 / 0 ~ 100%)
-#  반복 횟수 설정 (최대 10번)
 
 # 시나리오
 #  프로그램을 사용하여 알람 메뉴를 보여준다.
 #  메뉴에서 기본 설정, 커스텀 설정 둘 중 하나를 선택한다.
 #  일어나는 시간, 타이머 둘 중 하나 골라 선택한다.
 #  원하는 알람 타입을 선택하거나 음악 url을 넣어서 설정한다.
-#  알람 볼륨을 선택한다.
-#  반복 횟수 설정하기
-#  알람 설정한 것이 이게 맞는지 확인하는 창 띄우기
-#  확인 / 다시하기 선택하기
+#  알람 재생 길이
 #  마지막으로 알람 듣고 일어나면 됨!
 
 
+# import WakeUpGame.game.frompoop as frompoop
+# import WakeUpGame.game.catchBug as catchBug
+import sys
+import os
+import multiprocessing
+import random
 import imp
 from tabnanny import check
 from tkinter import *
@@ -35,14 +35,10 @@ from tkinter import filedialog
 import tkinter.font
 import time
 import datetime
-import playsound # pip install playsound==1.2.2
-import pygame # pip install pygame --pre
+import playsound  # pip install playsound==1.2.2
+import pygame  # pip install pygame --pre
 from pygame import mixer
-mixer.init() #Initialzing pyamge mixer
-import random
-import multiprocessing
-import os
-import sys
+mixer.init()  # Initialzing pyamge mixer
 
 # import sqlite3  # pip install pysqlite3
 
@@ -64,12 +60,45 @@ label.pack()
 
 root.title("peo-ddeug")  # 창 제목
 
+
 def btnpress():
     timer()
 
-# 알람 타입 값 가져오기
-def alarm():
+# 체크박스의 참, 거짓을 판단 후 2초 대기하다가 게임 화면을 연다.
 
+
+def game():
+    if value.get() == 1:
+        time.sleep(2)
+        openGame()
+    else:
+        return False
+
+# 게임 파일을 랜덤으로 골라서 랜덤 게임을 화면에 띄운다
+
+
+def openGame():
+    pathG = "/peo-ddeug/WakeUpGame/game"
+    gamefile = [os.path.join(pathG, f)
+                for f in os.listdir(pathG) if f.endswith('.py')]
+    randomgame = random.choice(gamefile)
+
+    print("완전 재밌는 게임 ♨ " + os.path.basename(randomgame))
+
+    if randomgame == "catchBug.py":
+        from WakeUpGame.game import catchBug
+        # catchBug = Toplevel(root)
+        # catchBug = Tk()
+        # catchBug.title("New page")
+        # catchBug.geometry("700x400")
+    else:
+        from WakeUpGame.game import frompoop
+
+
+# 알람 파일을 배열에 담아 랜덤으로 꺼내 재생 / 알람 타입 확인 후 알맞는 알람 재생
+
+
+def alarm():
     # https://stackoverflow.com/questions/60250171/how-to-play-random-mp3-files-in-pygame
     pathN = "/peo-ddeug/soundfile/NOISE"
     pathQ = "/peo-ddeug/soundfile/QUITE"
@@ -93,13 +122,13 @@ def alarm():
         print('고막을 때리는 곡 재생 ♬ ' + os.path.basename(randomMP3))
 
         # https://stackoverflow.com/questions/57158779/how-to-stop-audio-with-playsound-module
-        mixer.music.load(randomMP3) # loading music
-        mixer.music.play() # play music
-        time.sleep(stopSec) # delay 
-        mixer.music.stop() # stop music
+        mixer.music.load(randomMP3)  # loading music
+        mixer.music.play()  # play music
+        time.sleep(stopSec)  # delay
+        mixer.music.stop()  # stop music
 
-        # game function call
-        gameChk()
+        if stopSec == 0:
+            game()
 
         # playsound.playsound(randomMP3)
         # https://ko.code-paper.com/python/examples-does-playsound-python-stop-script
@@ -112,43 +141,28 @@ def alarm():
         randomMP3 = random.choice(Q_mp3)
         print('QUITE라고 조용할까? 일어나야지!!! 곡 재생 ~ ♬ ' + os.path.basename(randomMP3))
 
-        mixer.music.load(randomMP3) # loading music
-        mixer.music.play() # play music
-        time.sleep(stopSec) # delay 
-        mixer.music.stop() # stop music
+        mixer.music.load(randomMP3)  # loading music
+        mixer.music.play()  # play music
+        time.sleep(stopSec)  # delay
+        mixer.music.stop()  # stop music
 
         # game function call
-        gameChk()
+        # gameChk()
 
     elif type == "개발자 PICK":
         randomMP3 = random.choice(D_mp3)
         print('개발자 PICK 곡 재생 ~ ♬ ' + os.path.basename(randomMP3))
-        
-        mixer.music.load(randomMP3) # loading music
-        mixer.music.play() # play music
-        time.sleep(stopSec) # delay 
-        mixer.music.stop() # stop music
+
+        mixer.music.load(randomMP3)  # loading music
+        mixer.music.play()  # play music
+        time.sleep(stopSec)  # delay
+        mixer.music.stop()  # stop music
 
         # game function call
-        gameChk()
-
-# 게임 체크
-def gameChk():
-    if value.get() == 1:
-        print("기상 게임 여부 -> 참")
-        gameOpen()
-    else:
-        print("기상 게임 여부 -> 안함")
-
-# 게임 오픈
-def gameOpen():
-    root.destroy()
-    import WakeUpGame.frompoop as frompoop
+        # gameChk()
 
 # https://blog.naver.com/PostView.nhn?isHttpsRedirect=true&blogId=amethyst_lee&logNo=222021293449&parentCategoryNo=&categoryNo=&viewDate=&isShowPopularPosts=false&from=postView
 # https: // opentutorials.org/module/3181/18809
-
-# 시간이 다 되었을 때
 
 
 def timer():
@@ -190,14 +204,14 @@ alarmTypeDB.place(x=570, y=230)
 alarmTypeDB.config(state="readonly")  # 사용자의 입력 제한
 
 # root라는 창에 입력창 생성
-sec = tkinter.Entry(root, width=20)
+sec = tkinter.Entry(root, width=15)
 sec.config(fg="black")  # 입력창 배경, 글자색 설정
-sec.place(x=200, y=140)
+sec.place(x=230, y=140)
 # sec.bind("<Return>", timer)  # 엔터를 치면 결과라는 함수를 실행하라
 sec.bind(timer)  # 엔터를 치면 결과라는 함수를 실행하라
 
 # 몇 초간 음악 재생할지 결정
-mSec = tkinter.Entry(root, width=10)
+mSec = tkinter.Entry(root, width=15)
 mSec.config(fg="black")  # 입력창 배경, 글자색 설정
 mSec.place(x=570, y=140)
 # sec.bind("<Return>", timer)  # 엔터를 치면 결과라는 함수를 실행하라
@@ -209,12 +223,12 @@ mSec.bind(timer)  # 엔터를 치면 결과라는 함수를 실행하라
 value = IntVar()
 gameChk = tkinter.Checkbutton(root, text="기상 게임", variable=value)
 gameChk.place(x=230, y=310)
-gameChk.config(command=gameChk)
+gameChk.bind(game)
 
 # 확인 버튼
 btnImg = PhotoImage(file='img/button.png')
 btnOk = tkinter.Button(root, image=btnImg)
-btnOk.place(x=490, y=320)
+btnOk.place(x=530, y=320)
 btnOk.config(command=btnpress)
 
 root.mainloop()
