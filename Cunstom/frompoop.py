@@ -6,25 +6,6 @@ from tkinter import *
 
 pygame.init()
 
-
-def openNewWindow():
-
-    # Toplevel object which will
-    # be treated as a new window
-    newWindow = Toplevel()
-
-    # sets the title of the
-    # Toplevel widget
-    newWindow.title("New Window")
-
-    # sets the geometry of toplevel
-    newWindow.geometry("200x200")
-
-    # A Label widget to show in toplevel
-    Label(newWindow,
-          text="This is a new window").pack()
-
-
 # 화면 크기 설정
 screen_width = 480
 screen_height = 640
