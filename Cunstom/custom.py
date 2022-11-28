@@ -57,6 +57,8 @@ def resultURL():
     getentURL = str(entURL.get())
     webbrowser.open(getentURL)
 
+# 타이머를 맞추고
+
 
 def timer():
     cntSec = int(sec.get()) * 60
