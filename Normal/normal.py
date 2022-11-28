@@ -35,11 +35,13 @@ from tkinter import filedialog
 import tkinter.font
 import time
 import datetime
-import playsound
-import pygame
+import playsound # pip install playsound==1.2.2
+import pygame # pip install pygame --pre
+from pygame import mixer
+mixer.init() #Initialzing pyamge mixer
 import random
+import multiprocessing
 import os
-from multiprocessing import Process
 import sys
 
 # import sqlite3  # pip install pysqlite3
@@ -48,7 +50,7 @@ import sys
 # c = conn.cursor()
 
 # c.execute("CREATE TABLE IF NOT EXISTS users\
-# (id INTEGER PRIMARY KEY, username TEXT, email TEXT, phone TEXT, regist_date TEXT)")
+# (id INTEGER PRIMARY KEY, alarm TEXT, timer TEXT, game TEXT, combobox TEXT)")
 
 root = Tk()
 root.resizable(False, False)
@@ -62,42 +64,10 @@ label.pack()
 
 root.title("peo-ddeug")  # 창 제목
 
-# 메세지 요청 박스  만약 게임 플레이 여부가 false 라면 음악을 멈추겠냐는 확인 박스를 띄운다
-
-
-# def okcancel():
-#     msgbox.askquestion(title="예 / 아니요",
-#                        message="어서 잠에서 깨세요!! (확인을 누르면 기상 게임 화면으로 넘어갑니다.")
-#     alarm()
-
-# 버튼 누르면 알람 옵션에 따른 알람 실행
-
-
-# https://scribblinganything.tistory.com/278
-# def msgAndGame():
-#     new.configure()
-
-
-# def new_window():
-#     global new
-#     new = Toplevel()
-#     new.bind(msgAndGame)
-
-
-# def btnpress():
-#     p1 = Process(target=new_window)
-#     p2 = Process(target=timer)
-#     p1.start()
-#     p2.start()
-#     p1.join()
-#     p2.join()
-
 def btnpress():
     timer()
 
 # 알람 타입 값 가져오기
-
-
 def alarm():
 
     # https://stackoverflow.com/questions/60250171/how-to-play-random-mp3-files-in-pygame
@@ -113,33 +83,67 @@ def alarm():
     D_mp3 = [os.path.join(pathD, f)
              for f in os.listdir(pathD) if f.endswith('.mp3')]
 
-    type = alarmType.get()
+    type = alarmType.get()          # 알람 타입을 지정하는 콤보박스 값
+    stopSec = int(mSec.get()) * 60  # 알람 울릴 시간을 정한 입력박스 값
 
     if type == "NOISE":
         randomMP3 = random.choice(N_mp3)
         # https://yunwoong.tistory.com/41
+        print(f'{stopSec} 초 동안')
         print('고막을 때리는 곡 재생 ♬ ' + os.path.basename(randomMP3))
-        playsound.playsound(randomMP3)
+
+        # https://stackoverflow.com/questions/57158779/how-to-stop-audio-with-playsound-module
+        mixer.music.load(randomMP3) # loading music
+        mixer.music.play() # play music
+        time.sleep(stopSec) # delay 
+        mixer.music.stop() # stop music
+
+        # game function call
+        gameChk()
+
+        # playsound.playsound(randomMP3)
+        # https://ko.code-paper.com/python/examples-does-playsound-python-stop-script
+        # mp = multiprocessing.Process(target=playsound, args=(randomMP3,))
+        # mp.start()
+        # time.sleep(m)
+        # mp.terminate()
+
     elif type == "QUITE":
         randomMP3 = random.choice(Q_mp3)
-        print('QUITE라고 조용할까? 개발자를 믿지 마라! 곡 재생 ~ ♬ ' +
-              os.path.basename(randomMP3))
-        playsound.playsound(randomMP3)
+        print('QUITE라고 조용할까? 일어나야지!!! 곡 재생 ~ ♬ ' + os.path.basename(randomMP3))
+
+        mixer.music.load(randomMP3) # loading music
+        mixer.music.play() # play music
+        time.sleep(stopSec) # delay 
+        mixer.music.stop() # stop music
+
+        # game function call
+        gameChk()
+
     elif type == "개발자 PICK":
         randomMP3 = random.choice(D_mp3)
         print('개발자 PICK 곡 재생 ~ ♬ ' + os.path.basename(randomMP3))
-        playsound.playsound(randomMP3)
+        
+        mixer.music.load(randomMP3) # loading music
+        mixer.music.play() # play music
+        time.sleep(stopSec) # delay 
+        mixer.music.stop() # stop music
 
-    # print(sec.get())  # 알람 몇 분인지 값 가져오기
+        # game function call
+        gameChk()
 
-    # 게임 플레이 여부
-
-
-def chkOK():
+# 게임 체크
+def gameChk():
     if value.get() == 1:
-        print("게임 플레이 여부 -> 참")
+        print("기상 게임 여부 -> 참")
+        gameOpen()
     else:
-        print("게임 플레이 여부 -> 거짓")
+        print("기상 게임 여부 -> 안함")
+
+# 게임 오픈
+def gameOpen():
+    root.destroy()
+    import WakeUpGame.frompoop as frompoop
 
 # https://blog.naver.com/PostView.nhn?isHttpsRedirect=true&blogId=amethyst_lee&logNo=222021293449&parentCategoryNo=&categoryNo=&viewDate=&isShowPopularPosts=false&from=postView
 # https: // opentutorials.org/module/3181/18809
@@ -158,6 +162,7 @@ def timer():
     if cntSec == 0:
         # 선택한 옵션들에 맞는 음악을 재생
         # alarm()
+        # m = int(mSec.get()) * 60
         alarm()
 
 # 최근에 이 라이브러리(버전 1.3.0)를 설치해서 테스트해봤는데 오디오 파일 재생이 안 되면서 다음과 같은 에러가 발생했습니다.
@@ -173,8 +178,8 @@ alarmType.set("선택")
 alarmType.place(x=230, y=230)
 
 # 콤보 박스 확인 버튼(체크 종류 확인)
-btnCb = tkinter.Button(root, text="확인")
-btnCb.place(x=350, y=230)
+# btnCb = tkinter.Button(root, text="확인")
+# btnCb.place(x=350, y=230)
 # btnCb.config(command=alarm)
 
 # DB 콤보 박스
@@ -191,12 +196,20 @@ sec.place(x=200, y=140)
 # sec.bind("<Return>", timer)  # 엔터를 치면 결과라는 함수를 실행하라
 sec.bind(timer)  # 엔터를 치면 결과라는 함수를 실행하라
 
+# 몇 초간 음악 재생할지 결정
+mSec = tkinter.Entry(root, width=10)
+mSec.config(fg="black")  # 입력창 배경, 글자색 설정
+mSec.place(x=570, y=140)
+# sec.bind("<Return>", timer)  # 엔터를 치면 결과라는 함수를 실행하라
+mSec.bind(timer)  # 엔터를 치면 결과라는 함수를 실행하라
+
 
 # 게임 여부 체크버튼
+# https://gomming.tistory.com/59
 value = IntVar()
 gameChk = tkinter.Checkbutton(root, text="기상 게임", variable=value)
 gameChk.place(x=230, y=310)
-gameChk.config(command=chkOK)
+gameChk.config(command=gameChk)
 
 # 확인 버튼
 btnImg = PhotoImage(file='img/button.png')
