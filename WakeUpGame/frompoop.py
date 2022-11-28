@@ -1,4 +1,3 @@
-import main
 import pygame
 import random
 import imp
@@ -6,6 +5,25 @@ from tkinter import *
 
 
 pygame.init()
+
+
+def openNewWindow():
+
+    # Toplevel object which will
+    # be treated as a new window
+    newWindow = Toplevel()
+
+    # sets the title of the
+    # Toplevel widget
+    newWindow.title("New Window")
+
+    # sets the geometry of toplevel
+    newWindow.geometry("200x200")
+
+    # A Label widget to show in toplevel
+    Label(newWindow,
+          text="This is a new window").pack()
+
 
 # 화면 크기 설정
 screen_width = 480
@@ -23,10 +41,10 @@ clock = pygame.time.Clock()
 
 # 1. 사용자 초기화 (배경, 캐릭터, 좌표, 속도, 폰트)
 
-background = pygame.image.load("WakeUpGame/background1.png")
+background = pygame.image.load("WakeUpGame/img/background1.png")
 
 # 스프라이트 불러오기 (캐릭터)
-character = pygame.image.load("WakeUpGame/sprite1.png")
+character = pygame.image.load("/peo-ddeug/WakeUpGame/img/sprite1.png")
 character_size = character.get_rect().size
 character_width = character_size[0]
 character_height = character_size[1]
@@ -41,7 +59,7 @@ to_y = 0
 character_speed = 15
 
 # 똥 만들기
-ddong = pygame.image.load("WakeUpGame/enemy.png")
+ddong = pygame.image.load("/peo-ddeug/WakeUpGame/img/enemy.png")
 ddong_size = ddong.get_rect().size
 ddong_width = ddong_size[0]
 ddong_height = ddong_size[1]
@@ -59,7 +77,7 @@ total_time = 15
 start_ticks = pygame.time.get_ticks()  # 시작 tick 을 받아옴
 
 # 음악
-sound = pygame.mixer.Sound("/peo-ddeug/WakeUpGame/BGM.mp3")
+sound = pygame.mixer.Sound("/peo-ddeug/WakeUpGame/mp3/BGM.mp3")
 
 
 # 이벤트 루프
@@ -136,8 +154,7 @@ while running:
     pygame.display.update()  # while을 돌면서 게임화면을 계속 다시 그리기
 
 # 잠시 대기
-pygame.time.delay(2000)  # 2초 정도 대기 (ms)
-
+pygame.time.delay(5000)  # 2초 정도 대기 (ms)
 # pygame 종료5
 pygame.quit()
 
