@@ -20,6 +20,7 @@
 
 # import WakeUpGame.game.frompoop as frompoop
 # import WakeUpGame.game.catchBug as catchBug
+# import sqlite3  # pip install pysqlite3
 import sys
 import os
 import multiprocessing
@@ -38,9 +39,9 @@ import datetime
 import playsound  # pip install playsound==1.2.2
 import pygame  # pip install pygame --pre
 from pygame import mixer
+from app import *
 mixer.init()  # Initialzing pyamge mixer
 
-# import sqlite3  # pip install pysqlite3
 
 # conn = sqlite3.connect('data.sqlite', isolation_level=None)
 # c = conn.cursor()
@@ -209,11 +210,12 @@ alarmType.place(x=230, y=230)
 # btnCb.config(command=alarm)
 
 # DB 콤보 박스
-typeDB = ["NOISE, 30분", "QUITE 10분", "개발자 PICK 2분"]
-alarmTypeDB = tkinter.ttk.Combobox(root, width=10, height=10, value=type)
+typeDB = []
+res = getType()
+typeDB.append(res)
+alarmTypeDB = tkinter.ttk.Combobox(root, width=10, height=10, value=typeDB)
 alarmTypeDB.set("선택")
 alarmTypeDB.place(x=570, y=230)
-alarmTypeDB.config(state="readonly")  # 사용자의 입력 제한
 
 # root라는 창에 입력창 생성
 sec = tkinter.Entry(root, width=15)
@@ -221,6 +223,7 @@ sec.config(fg="black")  # 입력창 배경, 글자색 설정
 sec.place(x=230, y=140)
 # sec.bind("<Return>", timer)  # 엔터를 치면 결과라는 함수를 실행하라
 sec.bind(timer)  # 엔터를 치면 결과라는 함수를 실행하라
+strSec = sec.get()
 
 # 몇 초간 음악 재생할지 결정
 mSec = tkinter.Entry(root, width=15)
@@ -228,7 +231,7 @@ mSec.config(fg="black")  # 입력창 배경, 글자색 설정
 mSec.place(x=570, y=140)
 # sec.bind("<Return>", timer)  # 엔터를 치면 결과라는 함수를 실행하라
 mSec.bind(timer)  # 엔터를 치면 결과라는 함수를 실행하라
-
+strMsec = mSec.get()
 
 # 게임 여부 체크버튼
 # https://gomming.tistory.com/59
@@ -250,5 +253,33 @@ btnCb.config(command=bugGame)
 btnCb1 = tkinter.Button(root, text="똥 게임", state=tkinter.DISABLED)
 btnCb1.place(x=460, y=325)
 btnCb1.config(command=poopGame)
+
+
+def save_window():
+    new = Tk()
+    new.title("알람 DB 저장")
+    new.geometry("280x160")
+    tkinter.Label(new, text="알람 DB 저장").grid(padx=10, pady=10)
+    title = tkinter.Entry(new).place(x=20, y=60)
+
+    def save_type():
+        saveType("title", str(sec.get()), str(mSec.get()), alarmType.get())
+
+    sv = tkinter.Button(new, text="저장", width=10,
+                        command=save_type).place(x=180, y=80)
+
+    ex = tkinter.Button(new, text="확인", width=10,
+                        command=new.destroy).place(x=180, y=110)
+
+    # def exit():
+    #     new.destroy()
+
+    new.mainloop()
+
+
+btnSave = tkinter.Button(root, text="알람 저장")
+btnSave.place(x=370, y=350)
+t = alarmType.get()
+btnSave.config(command=save_window)
 
 root.mainloop()
