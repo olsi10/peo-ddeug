@@ -32,6 +32,8 @@ from tkinter import filedialog
 import tkinter.font
 import webbrowser
 import time
+import os
+import random
 
 
 root = Tk()
@@ -56,11 +58,14 @@ def btnpress():
 def resultURL():
     getentURL = str(entURL.get())
     webbrowser.open(getentURL)
+    game()
 
 # 타이머를 맞추고
 
 
 def timer():
+    btnCb['state'] = tkinter.NORMAL
+    btnCb1['state'] = tkinter.NORMAL
     cntSec = int(sec.get()) * 60
     while (cntSec != 0):
         cntSec = cntSec-1
@@ -71,6 +76,38 @@ def timer():
     if cntSec == 0:
         # 선택한 옵션들에 맞는 음악을 재생
         resultURL()
+
+
+def game():
+    if value.get() == 1:
+        time.sleep(2)
+        openGame()
+    else:
+        return False
+
+
+def bugGame():
+    root.destroy()
+    import catchBug
+
+
+def poopGame():
+    root.destroy()
+    import frompoop
+
+
+def openGame():
+    pathG = "/peo-ddeug/WakeUpGame"
+    gamefile = [os.path.join(pathG, f)
+                for f in os.listdir(pathG) if f.endswith('.py')]
+    randomgame = random.choice(gamefile)
+
+    print("완전 재밌는 게임 ♨ " + os.path.basename(randomgame))
+
+    if randomgame == "catchBug.py":
+        bugGame()
+    else:
+        poopGame()
 
 
 # url을 입력할 입력창 생성
@@ -104,7 +141,15 @@ gameChk.place(x=230, y=310)
 # 확인 버튼
 btnImg = PhotoImage(file='img/button.png')
 btnOk = tkinter.Button(root, image=btnImg)
-btnOk.place(x=490, y=320)
+btnOk.place(x=530, y=320)
 btnOk.config(command=btnpress)
+
+btnCb = tkinter.Button(root, text="벌레 게임", state=tkinter.DISABLED)
+btnCb.place(x=455, y=355)
+btnCb.config(command=bugGame)
+
+btnCb1 = tkinter.Button(root, text="똥 게임", state=tkinter.DISABLED)
+btnCb1.place(x=460, y=325)
+btnCb1.config(command=poopGame)
 
 root.mainloop()
