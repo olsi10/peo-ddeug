@@ -19,12 +19,12 @@ root.title("peo-ddeug")  # 창 제목
 
 def click1():
     root.destroy()
-    import WakeUpGame.game.catchBug as catchBug
+    import WakeUpGame.catchBug as catchBug
 
 
 def click():
     root.destroy()
-    import WakeUpGame.game.frompoop as frompoop
+    import WakeUpGame.frompoop as frompoop
 
 
 btn_font = tkinter.font.Font(family="메이플스토리", size=13)
