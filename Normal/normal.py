@@ -98,7 +98,7 @@ def openGame():
 
     if randomgame == "catchBug.py":
         bugGame()
-    else:
+    elif randomgame == "poopGame.py":
         poopGame()
 
     # 알람 파일을 배열에 담아 랜덤으로 꺼내 재생 / 알람 타입 확인 후 알맞는 알람 재생
